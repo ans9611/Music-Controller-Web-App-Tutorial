@@ -1,2 +1,3 @@
 django
 djangorestframework
+security==1.2.1
