@@ -54,7 +54,7 @@ def refresh_spotify_token(session_id):
         'refresh_token': refresh_token,
         'client_id': CLIENT_ID,
         'client_secret': CLIENT_SECRET
-    }).json()
+    }, timeout=60).json()
 
     access_token = response.get('access_token')
     token_type = response.get('token_type')
@@ -70,11 +70,11 @@ def execute_spotify_api_request(session_id, endpoint, post_=False, put_=False):
                'Authorization': "Bearer " + tokens.access_token}
 
     if post_:
-        post(BASE_URL + endpoint, headers=headers)
+        post(BASE_URL + endpoint, headers=headers, timeout=60)
     if put_:
-        put(BASE_URL + endpoint, headers=headers)
+        put(BASE_URL + endpoint, headers=headers, timeout=60)
 
-    response = get(BASE_URL + endpoint, {}, headers=headers)
+    response = get(BASE_URL + endpoint, {}, headers=headers, timeout=60)
     try:
         return response.json()
     except:
