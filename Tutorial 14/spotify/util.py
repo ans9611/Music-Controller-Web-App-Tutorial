@@ -2,7 +2,8 @@ from .models import SpotifyToken
 from django.utils import timezone
 from datetime import timedelta
 from .credentials import CLIENT_ID, CLIENT_SECRET
-from requests import post, put, get
+from requests import post, put
+from security import safe_requests
 
 
 BASE_URL = "https://api.spotify.com/v1/me/"
@@ -75,7 +76,7 @@ def execute_spotify_api_request(session_id, endpoint, post_=False, put_=False):
     if put_:
         put(BASE_URL + endpoint, headers=headers)
 
-    response = get(BASE_URL + endpoint, {}, headers=headers)
+    response = safe_requests.get(BASE_URL + endpoint, {}, headers=headers)
     try:
         return response.json()
     except:
