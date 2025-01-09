@@ -54,7 +54,7 @@ def refresh_spotify_token(session_id):
         'refresh_token': refresh_token,
         'client_id': CLIENT_ID,
         'client_secret': CLIENT_SECRET
-    }).json()
+    }, timeout=60).json()
 
     access_token = response.get('access_token')
     token_type = response.get('token_type')
